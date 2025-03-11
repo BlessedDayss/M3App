@@ -38,3 +38,4 @@ WebApplication1.sln.DotSettings.user
 appsettings.Development.json
 Properties/launchSettings.json
 bitbucket-pipelines.yml
+devappsettings.json
