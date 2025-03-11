@@ -34,4 +34,28 @@ public class TeacherController : ControllerBase
 
         return teacher;
     }
+
+    [HttpGet("Name")]
+    public async Task<ActionResult<Teacher>> GetTeacherByName(string name)
+    {
+        var teacher = await _context.Teacher.FirstOrDefaultAsync(t => t.Name == name);
+        if (teacher == null)
+        {
+            return NotFound("Unable to find teacher with the given name");
+        }
+
+        return teacher;
+    }
+
+    [HttpGet("Subject")]
+    public async Task<ActionResult<Teacher>> GetTeacherBySubject(string subject)
+    {
+        var teacher = await _context.Teacher.FirstOrDefaultAsync(t => t.Subject == subject);
+        if (teacher == null)
+        {
+            return NotFound("Unable to find teacher with the given subject");
+        }
+
+        return teacher;
+    }
 }

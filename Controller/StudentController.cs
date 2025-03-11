@@ -90,7 +90,7 @@
             return CreatedAtAction("GetStudent", new { Id = student.Id }, student);
         }
 
-        [HttpPut("{Id}")]
+        [HttpPut("{Id:int}")]
         public async Task<IActionResult> PutStudent(int Id, Student student)
         {
             if (Id != student.Id)
