@@ -9,8 +9,6 @@ if (string.IsNullOrEmpty(connectionString))
     throw new InvalidOperationException("Database connection string is missing.");
 }
 
-
-
 builder.Services.AddDbContext<M3ManagmentContext>(options =>
     options.UseNpgsql(connectionString));
 
