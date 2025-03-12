@@ -10,7 +10,7 @@
     {
         private readonly M3ManagmentContext _context;
 
-        public StudentController(M3ManagmentContext context) 
+        public StudentController(M3ManagmentContext context)
         {
             _context = context;
         }
@@ -21,9 +21,9 @@
             return await _context.Student.ToListAsync();
         }
 
-        
 
-        [HttpGet("{Id}")]
+
+        [HttpGet("{Id:int}")]
         public async Task<ActionResult<Student>> GetStudent(int Id)
         {
             var student = await _context.Student.FindAsync(Id);
@@ -34,12 +34,19 @@
             return student;
         }
 
-        [HttpGet("Name")]
-        public async Task<ActionResult<Student>> GetStudentByName(string Name) {
+        [HttpGet("{Name}")]
+        public async Task<ActionResult<Student>> GetStudentByName(string Name)
+        {
             var student = await _context.Student.FirstOrDefaultAsync(s => s.Name == Name);
 
-            if (student == null) {
-                return NotFound();
+            if (student == null)
+            {
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Student with name {Name} not found"
+                });
             }
             return student;
         }
@@ -47,7 +54,7 @@
         [HttpPost]
         public async Task<ActionResult<Student>> PostStudent(Student student)
         {
-            
+
             bool StudentExists = await _context.Student
             .AnyAsync(s => s.Name == student.Name && s.Surname == student.Surname);
 
@@ -55,12 +62,12 @@
             {
                 return BadRequest("Error: A student with the same name and surname already exists");
             }
-            
+
             if (student.Age <= 0)
             {
                 student.Age = new Random().Next(15, 25);
             }
-            
+
             if (student.Grade <= 0)
             {
                 student.Grade = new Random().Next(1, 10);
@@ -70,7 +77,7 @@
             {
                 student.Gpa = new Random().Next(1, 5);
             }
-            
+
             if (student.TeacherId == 0)
             {
                 var randomTeacher = await _context.Teacher
@@ -108,9 +115,10 @@
                 if (!StudentExists(Id))
                 {
                     return NotFound();
-                } else 
+                }
+                else
                 {
-                   throw;
+                    throw;
                 }
             }
             return NoContent();
@@ -119,10 +127,10 @@
 
         // [HttpDelete("Id")]
 
-        private bool StudentExists(int Id) 
+        private bool StudentExists(int Id)
         {
             return _context.Student.Any(s => s.Id == Id);
         }
     }
-    
+
 }
