@@ -1,6 +1,11 @@
+
+using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OData.ModelBuilder;
+using Microsoft.OData.Edm;
 using WebApplication1.Models;
 using Newtonsoft.Json;
+
 
 var builder = WebApplication.CreateBuilder(args);
 string? connectionString;

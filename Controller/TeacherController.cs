@@ -41,7 +41,12 @@ public class TeacherController : ControllerBase
         var teacher = await _context.Teacher.FirstOrDefaultAsync(t => t.Name == name);
         if (teacher == null)
         {
-            return NotFound("Unable to find teacher with the given name");
+            return NotFound(new ProblemDetails
+            {
+                Status = 404,
+                Title = "Not Found",
+                Detail = $"Teacher with name {name} not found"
+            });
         }
 
         return teacher;

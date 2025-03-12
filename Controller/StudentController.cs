@@ -130,7 +130,8 @@
         }
 
 
-        // [HttpDelete("Id")]
+        // [HttpDelete("Id")] TODO: Add this method
+        // public async Task<ActionResult<Student>> DeleteStudent(int Id)
 
         private bool StudentExists(int Id)
         {
