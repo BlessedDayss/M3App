@@ -29,7 +29,12 @@
             var student = await _context.Student.FindAsync(Id);
             if (student == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Student with id {Id} not found"
+                });
             }
             return student;
         }
