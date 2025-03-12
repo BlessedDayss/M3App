@@ -1,9 +1,21 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
-
+string? connectionString;
+if (builder.Environment.IsDevelopment())
+{
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+}
+else
+{
+    connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
+    if (string.IsNullOrEmpty(connectionString))
+    {
+        throw new InvalidOperationException("❌ Database connection string is missing.");
+    }
+}
 if (string.IsNullOrEmpty(connectionString))
 {
     throw new InvalidOperationException("Database connection string is missing.");
@@ -13,8 +25,8 @@ builder.Services.AddDbContext<M3ManagmentContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve);
+    .AddNewtonsoftJson(options =>
+        options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.None);  // System.Text.Json.Serialization.ReferenceHandler.Preserve)
 
 // builder.Services.AddDbContext<M3ManagmentContext>(options =>
 // {
@@ -26,8 +38,11 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 // app.UseHttpsRedirection();
 app.MapControllers();
