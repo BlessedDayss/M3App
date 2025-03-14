@@ -7,6 +7,8 @@
 
 ## Overview
 
+This version is more structured and easier to read, making it suitable for a GitHub repository.
+This version is more structured and easier to read, making it suitable for a GitHub repository.
 M3 Management System is an API-driven application built with ASP.NET Core 8.0. It offers comprehensive management of students and teachers with robust features like OData support, Entity Framework Core integration, and PostgreSQL for reliable data storage.
 
 ## Features
