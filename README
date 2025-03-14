@@ -1,43 +1,45 @@
 # M3 Management System
 
 ![M3 Management System](https://img.shields.io/badge/M3-Management-blue)
-![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-8.0-brightgreen)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+![ASP.NET Core 8.0](https://img.shields.io/badge/ASP.NET%20Core-8.0-brightgreen)
+![PostgreSQL Database](https://img.shields.io/badge/PostgreSQL-Database-blue)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow)
 
-## 📋 Overview
+## Overview
 
-M3 Management System is a robust API-driven application built with ASP.NET Core 8.0 that provides comprehensive management of students and teachers. This system offers powerful data management capabilities with OData support, Entity Framework Core, and PostgreSQL database integration.
+M3 Management System is an API-driven application built with ASP.NET Core 8.0. It offers comprehensive management of students and teachers with robust features like OData support, Entity Framework Core integration, and PostgreSQL for reliable data storage.
 
-## 🚀 Features
+## Features
 
-- **Student Management**: Create, read, update, and delete student records
-- **Teacher Management**: Comprehensive teacher profile management
-- **RESTful API**: Full support for standard HTTP methods (GET, POST, PUT, DELETE)
-- **OData Support**: Advanced querying capabilities
-- **Swagger Documentation**: Interactive API documentation
-- **PostgreSQL Database**: Reliable and scalable data storage
-- **Docker Support**: Easy deployment with containerization
+- **Student Management**: CRUD operations for student records.
+- **Teacher Management**: Full management of teacher profiles.
+- **RESTful API**: Supports GET, POST, PUT, and DELETE methods.
+- **OData Support**: Enables advanced querying capabilities.
+- **Swagger Documentation**: Interactive API docs for easy testing and development.
+- **PostgreSQL Database**: Reliable and scalable storage.
+- **Docker Support**: Containerized deployment for streamlined setups.
 
-## 📖 API Documentation
+## API Documentation
 
 ### Endpoints
 
 #### Students
-- `GET /api/students` - Retrieve all students
-- `GET /api/students/{id}` - Retrieve a specific student
-- `POST /api/students` - Create a new student
-- `PUT /api/students/{id}` - Update a student
-- `DELETE /api/students/{id}` - Delete a student
+
+- **GET** `/api/students` – Retrieve all students.
+- **GET** `/api/students/{id}` – Retrieve a specific student.
+- **POST** `/api/students` – Create a new student.
+- **PUT** `/api/students/{id}` – Update an existing student.
+- **DELETE** `/api/students/{id}` – Delete a student.
 
 #### Teachers
-- `GET /api/teachers` - Retrieve all teachers
-- `GET /api/teachers/{id}` - Retrieve a specific teacher
-- `POST /api/teachers` - Create a new teacher
-- `PUT /api/teachers/{id}` - Update a teacher
-- `DELETE /api/teachers/{id}` - Delete a teacher
 
-## 💻 Technology Stack
+- **GET** `/api/teachers` – Retrieve all teachers.
+- **GET** `/api/teachers/{id}` – Retrieve a specific teacher.
+- **POST** `/api/teachers` – Create a new teacher.
+- **PUT** `/api/teachers/{id}` – Update an existing teacher.
+- **DELETE** `/api/teachers/{id}` – Delete a teacher.
+
+## Technology Stack
 
 - **Framework**: ASP.NET Core 8.0
 - **ORM**: Entity Framework Core 8.0
@@ -47,86 +49,99 @@ M3 Management System is a robust API-driven application built with ASP.NET Core 
 - **Query Support**: OData
 - **Containerization**: Docker
 
-## 🛠️ Installation & Setup
+## Installation & Setup
 
 ### Prerequisites
+
 - .NET 8.0 SDK
 - PostgreSQL
 - Docker (optional)
 
-### Local Development Setup
+### Local Development
 
-1. **Clone the repository**
+1. **Clone the Repository**
+
    ```bash
    git clone https://github.com/yourusername/M3App.git
    cd M3App
    ```
 
-2. **Update database connection**
-   
-   Update the connection string in `appsettings.json` for development:
+2. **Configure Database**
+
+   Update the connection string in `appsettings.json`:
+
    ```json
    "ConnectionStrings": {
      "DefaultConnection": "Host=localhost;Database=m3management;Username=yourusername;Password=yourpassword"
    }
    ```
 
-3. **Run migrations**
+3. **Run Migrations**
+
    ```bash
    dotnet ef database update
    ```
 
-4. **Run the application**
+4. **Run the Application**
+
    ```bash
    dotnet run
    ```
 
 5. **Access Swagger UI**
-   
-   Navigate to `http://localhost:5000/swagger` in your browser
+
+   Navigate to `http://localhost:5000/swagger`.
 
 ### Docker Deployment
 
-1. **Build the Docker image**
+1. **Build the Docker Image**
    ```bash
    docker build -t m3app .
    ```
 
-## 🧪 Testing
+## Testing
 
-Run the test suite with:
+Execute tests:
+
 ```bash
 dotnet test
 ```
 
-## 📊 Database Schema
-
-The application uses the following main entities:
+## Database Schema
 
 ### Student
-- ID (Primary Key)
-- Name
-- Email
-- Enrollment Date
-- Additional Properties
+
+- **ID** (Primary Key)
+- **Name**
+- **Email**
+- **Enrollment Date**
+- **Additional Fields**
 
 ### Teacher
-- ID (Primary Key)
-- Name
-- Email
-- Specialty
-- Additional Properties
 
-## 🤝 Contributing
+- **ID** (Primary Key)
+- **Name**
+- **Email**
+- **Specialty**
+- **Additional Fields**
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+## Contributing
 
-## 📄 License
+1. Fork the repository.
+2. Create a feature branch:
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Add an amazing feature"
+   ```
+4. Push your branch:
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+5. Open a Pull Request.
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+## License
 
----
+This project is licensed under the MIT License – see the LICENSE file for details.
