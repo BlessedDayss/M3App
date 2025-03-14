@@ -94,7 +94,7 @@ M3 Management System is an API-driven application built with ASP.NET Core 8.0. I
 
    Navigate to `http://localhost:5000/swagger`.
 
-### Docker Deployment
+### Docker Deploymen
 
 1. **Build the Docker Image**
    ```bash
