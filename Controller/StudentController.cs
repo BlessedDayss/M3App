@@ -2,8 +2,10 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using WebApplication1.ActionFilter;
     using WebApplication1.Models;
-
+    
+    [ActionFilterLog]
     [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
