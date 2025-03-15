@@ -11,7 +11,7 @@ pipelines:
           # Получаем сообщение последнего коммита
           - "COMMIT_MSG=$(git log -1 --pretty=%B)"
           # Удаляем из сообщения вхождение 'OSP-8 ' (с пробелом после)
-          - "NEW_COMMIT_MSG=$(echo \"$COMMIT_MSG\" | sed 's/OSP-8 //g')"
+          - "NEW_COMMIT_MSG=$(echo \"$COMMIT_MSG\" | sed -E 's/OPS-[0-9]+ //g')"
           # Если сообщение изменилось, перезаписываем последний коммит
           - |
             if [ "$COMMIT_MSG" != "$NEW_COMMIT_MSG" ]; then
