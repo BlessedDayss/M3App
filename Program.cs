@@ -1,29 +1,23 @@
-
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OData.ModelBuilder;
 using Microsoft.OData.Edm;
 using WebApplication1.Models;
 using Newtonsoft.Json;
-
+using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
-string? connectionString;
-if (builder.Environment.IsDevelopment())
-{
-    connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-}
-else
-{
-    connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
-    if (string.IsNullOrEmpty(connectionString))
-    {
-        throw new InvalidOperationException("❌ Database connection string is missing.");
-    }
-}
+
+builder.Configuration.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: false)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+    .AddEnvironmentVariables();
+
+builder.Host.UseNLog();
+
+string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 if (string.IsNullOrEmpty(connectionString))
 {
-    throw new InvalidOperationException("Database connection string is missing.");
+    throw new InvalidOperationException("❌ Database connection string is missing.");
 }
 
 builder.Services.AddDbContext<M3ManagmentContext>(options =>
@@ -31,24 +25,14 @@ builder.Services.AddDbContext<M3ManagmentContext>(options =>
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options =>
-        options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.None);  // System.Text.Json.Serialization.ReferenceHandler.Preserve)
-
-// builder.Services.AddDbContext<M3ManagmentContext>(options =>
-// {
-//     options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionDB"));
-// });
+        options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.None);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-// app.UseHttpsRedirection();
+app.UseSwagger();
+app.UseSwaggerUI();
 app.MapControllers();
 app.Run();
