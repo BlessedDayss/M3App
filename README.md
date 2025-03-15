@@ -8,7 +8,6 @@
 ## Overview
 
 This version is more structured and easier to read, making it suitable for a GitHub repository.
-This version is more structured and easier to read, making it suitable for a GitHub repository.
 M3 Management System is an API-driven application built with ASP.NET Core 8.0. It offers comprehensive management of students and teachers with robust features like OData support, Entity Framework Core integration, and PostgreSQL for reliable data storage.
 
 ## Features
@@ -19,7 +18,6 @@ M3 Management System is an API-driven application built with ASP.NET Core 8.0. I
 - **OData Support**: Enables advanced querying capabilities.
 - **Swagger Documentation**: Interactive API docs for easy testing and development.
 - **PostgreSQL Database**: Reliable and scalable storage.
-- **Docker Support**: Containerized deployment for streamlined setups.
 
 ## API Documentation
 
@@ -49,7 +47,6 @@ M3 Management System is an API-driven application built with ASP.NET Core 8.0. I
 - **API Documentation**: Swagger/OpenAPI
 - **Serialization**: Newtonsoft.Json
 - **Query Support**: OData
-- **Containerization**: Docker
 
 ## Installation & Setup
 
@@ -57,7 +54,6 @@ M3 Management System is an API-driven application built with ASP.NET Core 8.0. I
 
 - .NET 8.0 SDK
 - PostgreSQL
-- Docker (optional)
 
 ### Local Development
 
@@ -74,7 +70,7 @@ M3 Management System is an API-driven application built with ASP.NET Core 8.0. I
 
    ```json
    "ConnectionStrings": {
-     "DefaultConnection": "Host=localhost;Database=m3management;Username=yourusername;Password=yourpassword"
+     "DefaultConnection": "Host=localhost;Database=m3management;Username=postgres;Password=postgres"
    }
    ```
 
@@ -94,20 +90,6 @@ M3 Management System is an API-driven application built with ASP.NET Core 8.0. I
 
    Navigate to `http://localhost:5000/swagger`.
 
-### Docker Deploymen
-
-1. **Build the Docker Image**
-   ```bash
-   docker build -t m3app .
-   ```
-
-## Testing
-
-Execute tests:
-
-```bash
-dotnet test
-```
 
 ## Database Schema
 
