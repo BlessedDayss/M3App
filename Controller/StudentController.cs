@@ -5,7 +5,7 @@
     using Microsoft.EntityFrameworkCore;
     using WebApplication1.ActionFilter;
     using WebApplication1.Models;
-    [OutputCache(Duration=10)]
+    [OutputCache(Duration=60)]
     [ActionFilterLog]
     [Route("api/[controller]")]
     [ApiController]

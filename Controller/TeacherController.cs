@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
-
-namespace WebApplication1.Controller;
-
-using WebApplication1.ActionFilter;
+using Microsoft.AspNetCore.OutputCaching;
 
 
+[OutputCache(Duration=60)]
 [Route("api/[controller]")]
 [ApiController]
 public class TeacherController : ControllerBase
