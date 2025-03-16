@@ -5,33 +5,34 @@ pipelines:
     - step:
         name: "Mirror to GitHub without Jira tag and pipelines file"
         script:
-          # Вывод значения GITHUB_USER для отладки (удалите после проверки)
-          - "echo 'GITHUB_USER is: '$GITHUB_USER"
-          - "echo 'Checking last commit message...'"
-          # Получаем сообщение последнего коммита
-          - "COMMIT_MSG=$(git log -1 --pretty=%B)"
-          # Удаляем из сообщения вхождение 'OSP-8 ' (с пробелом после)
-          - "NEW_COMMIT_MSG=$(echo \"$COMMIT_MSG\" | sed -E 's/OPS-[0-9]+ //g')"
-          # Если сообщение изменилось, перезаписываем последний коммит
           - |
-            if [ "$COMMIT_MSG" != "$NEW_COMMIT_MSG" ]; then
-              echo "Updating commit message:"
-              echo "Old: $COMMIT_MSG"
-              echo "New: $NEW_COMMIT_MSG"
+            # Print the GitHub username for debugging
+            echo "GITHUB_USER is: $GITHUB_USER"
+            
+            # Notify that we're checking the commit message
+            echo "Checking last commit message..."
+            
+            # Capture the last commit message
+            COMMIT_MSG=$(git log -1 --pretty=%B)
+            echo "Old commit message: $COMMIT_MSG"
+            
+            # Remove Jira tags (e.g., OPS-123) from the commit message
+            NEW_COMMIT_MSG=$(echo "$COMMIT_MSG" | sed -E 's/OPS-[0-9]+[ :\-]+//g')
+            echo "New commit message: $NEW_COMMIT_MSG"
+            
+            # Check if the commit message changed or if bitbucket-pipelines.yml exists
+            if [ "$COMMIT_MSG" != "$NEW_COMMIT_MSG" ] || git ls-files -- bitbucket-pipelines.yml > /dev/null; then
+              # Remove bitbucket-pipelines.yml from the Git index if it exists
+              if git ls-files -- bitbucket-pipelines.yml > /dev/null; then
+                echo "Removing bitbucket-pipelines.yml for GitHub mirror..."
+                git rm --cached bitbucket-pipelines.yml
+              fi
+              # Amend the last commit with the new message
               git commit --amend -m "$NEW_COMMIT_MSG"
             else
-              echo "No update needed."
+              echo "No changes needed."
             fi
-          # Удаляем файл bitbucket-pipelines.yml, если он существует, чтобы он не попал в GitHub
-          - |
-            if [ -f "bitbucket-pipelines.yml" ]; then
-              echo "Removing bitbucket-pipelines.yml for GitHub mirror..."
-              git rm --cached bitbucket-pipelines.yml || true
-              # Если есть изменения, делаем коммит с удалением файла
-              git diff --cached --quiet || git commit -m "Remove bitbucket-pipelines.yml for GitHub mirror"
-            else
-              echo "bitbucket-pipelines.yml not found, skipping removal."
-            fi
-          - "echo 'Pushing changes to GitHub integ branch...'"
-          # Пушим изменения в ветку integ на GitHub, подставляя переменные
-          - "git push --force https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/BlessedDayss/M3App.git HEAD:integ"
+            
+            # Push the changes to the GitHub integ branch
+            echo "Pushing changes to GitHub integ branch..."
+            git push --force https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/BlessedDayss/M3App.git HEAD:integ
