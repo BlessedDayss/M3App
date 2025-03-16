@@ -1,12 +1,12 @@
 ﻿namespace WebApplication1.Controller
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.OutputCaching;
     using Microsoft.EntityFrameworkCore;
     using WebApplication1.ActionFilter;
     using WebApplication1.Models;
-    
+    [OutputCache(Duration=10)]
     [ActionFilterLog]
-    [ServiceFilter(typeof(Cache))]
     [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
