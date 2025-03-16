@@ -6,6 +6,7 @@
     using WebApplication1.Models;
     
     [ActionFilterLog]
+    [ServiceFilter(typeof(Cache))]
     [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
