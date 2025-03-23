@@ -119,7 +119,7 @@
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StudentExists(Id))
+                if (!await StudentExists(Id))
                 {
                     return NotFound();
                 }
@@ -135,9 +135,9 @@
         // [HttpDelete("Id")] TODO: Add this method
         // public async Task<ActionResult<Student>> DeleteStudent(int Id)
 
-        private bool StudentExists(int Id)
+        private async Task<bool> StudentExists(int Id)
         {
-            return _context.Student.Any(s => s.Id == Id);
+            return await _context.Student.AnyAsync(s => s.Id == Id);
         }
     }
 
