@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using WebApplication1.ActionFilter;
     using WebApplication1.Models;
-    
+
     [ActionFilterLog]
     [Route("api/[controller]")]
     [ApiController]
@@ -98,7 +98,7 @@
 
                 student.TeacherId = randomTeacher.Id;
             }
-            _context.Student.Add(student);
+            _context.Student.AddAsync(student);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetStudent", new { Id = student.Id }, student);
